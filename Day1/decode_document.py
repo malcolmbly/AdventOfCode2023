@@ -19,7 +19,6 @@ def decode(filename):
 
 def format_document(filename):
   string_to_number_dict = {
-  "zero": "0",
   "one": "1",
   "two": "2",
   "three": "3",
@@ -31,9 +30,10 @@ def format_document(filename):
   "nine": "9"
   }
   unformatted_file = open(filename, 'r')
-  formatted_file = open("formatted_strings", 'w')
+  formatted_filename = filename + "_formatted"
+  formatted_file = open(formatted_filename, 'w')
   lines = unformatted_file.readlines()
-  pattern = re.compile('(zero|one|two|three|four|five|six|seven|eight|nine)')
+  pattern = re.compile('(one|two|three|four|five|six|seven|eight|nine)')
   for line in lines:
     # search in line for each of the keys above
     # find the one that has the lowest value for m.start
@@ -42,7 +42,7 @@ def format_document(filename):
       line = re.sub(number_text_match_value, string_to_number_dict[number_text_match_value], line)
     formatted_file.write(line)
 
-  return "formatted_strings"
+  return formatted_filename
 
 def format_and_decode(filename):
   print(decode(format_document(filename)))
